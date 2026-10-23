@@ -1,32 +1,39 @@
 # Scifo
 
-Scifo is a small, file-based coding-agent kit. Its main agent orchestrates work and delegates code edits to a specialist. The first version targets Codex; its skills are portable so a Claude adapter can be added later.
+Scifo is a small, file-based coding-agent buddy. Its main agent orchestrates repository work and delegates bounded code changes to specialist agents. The first version targets Codex; the workflows are written so a Claude adapter can be added later.
 
-## What is included
+## Install Scifo once for your Codex user
 
-- `AGENTS.md`: Scifo's orchestration, communication, and safety instructions.
+1. Install Codex and sign in with `codex login`. Check the active session with `codex login status`.
+2. Open this Scifo repository in Codex. The source skill lives at `skills/scifo-install/SKILL.md`, so ask Codex: “Read `skills/scifo-install/SKILL.md` and follow it to install Scifo for this user.”
+3. Review and approve the requested writes to your Codex user directories. The installer adds Scifo's core instructions to `~/.codex/AGENTS.md`, its agents to `~/.codex/agents/`, and its skills to `~/.agents/skills/`.
+4. Restart Codex so it loads the new global instructions, agents, and skills.
+
+After that, use Codex in any project as usual. Scifo's global instructions and skills are available there without copying the kit into each repository. Run `$scifo-install` from any repository to update the installed files from this source checkout.
+
+The installer keeps existing global instructions, adds or updates only a marked Scifo section, and stops if an agent or skill destination already exists with content it cannot identify as Scifo-owned. It does not change `~/.codex/config.toml` by default. Codex's normal login is the sign-in mechanism; Scifo has no separate account.
+
+## Optional project context
+
+Use project-local instructions only when a repository has conventions or architecture that should not follow you to other projects. Start with [`templates/project/AGENTS.md`](templates/project/AGENTS.md), merge relevant content into that repository's `AGENTS.md`, and fill in the project facts. Keep shared Scifo behavior in your user-level files and project facts in the project repository.
+
+Project-specific skills can live in that repository's `.agents/skills/`. To reuse a useful skill in other projects, ask Scifo to follow `$scifo-share-skill` and provide the skill directory. It checks that the skill is generic and contains no project secrets, then adds it to `~/.agents/skills/` under a distinct name.
+
+## What is installed
+
+- `AGENTS.md`: orchestration, communication, and safety instructions.
 - `.codex/agents/`: researcher, implementer, and reviewer role definitions.
-- `.codex/config.toml`: enables Codex subagents with a small concurrency cap.
-- `skills/`: portable repo orientation, code implementation, debugging, and code review workflows. Copy these into the target repository's `.agents/skills/` directory.
-- `.scifo/secrets.example.md`: a safe template for recording secret variable names and purposes.
+- `skills/`: repository orientation, implementation, debugging, code review, installation, and skill sharing workflows.
+- `.scifo/secrets.example.md`: a safe template for recording environment variable names and purposes.
 
-## Use Scifo in a project
-
-1. Install and sign in to Codex. For ChatGPT sign-in, run `codex login` and complete the browser flow. Check the current session with `codex login status`.
-2. Copy Scifo's `AGENTS.md` guidance into the target repository's root `AGENTS.md`. If that file already exists, merge the Scifo sections into it and preserve project-specific instructions.
-3. Copy the contents of `skills/` into the target repository's `.agents/skills/` directory.
-4. Copy `.codex/agents/` into the target repository's `.codex/agents/` directory. Merge the `[agents]` settings from `.codex/config.toml` into an existing project config rather than replacing it.
-5. Copy `.scifo/secrets.example.md` to `.scifo/secrets.local.md` if you want a local variable-name registry. Add `.scifo/secrets.local.md` to the target repository's `.gitignore`.
-6. Open the target repository in Codex and trust it when prompted so its project-scoped Codex files can load. Start with a small request such as: “Have Scifo map this repository and summarize its conventions.”
-
-Scifo's secret registry contains names and purposes only. Put real values in environment variables or a secret manager; never paste them into Scifo files, prompts, chat, logs, or command output. The registry is for the human maintainer and Scifo is instructed not to read it.
+Scifo's secret registry is for human reference and records names and purposes only. Never put real values in Scifo files, prompts, chat, logs, or command output. Keep them in environment variables or a secret manager. Scifo must not read `.scifo/secrets.local.md`.
 
 ## Delegation model
 
-Scifo owns understanding, planning, routing, review synthesis, and the final response. It delegates target-project edits to `scifo_implementer`. `scifo_researcher` investigates without editing, and `scifo_reviewer` independently checks meaningful completed changes. These are behavior instructions, not separate security permissions: Codex subagents inherit the parent session's tools and sandbox. Configure the parent session's permissions for the repository and inspect changes before accepting them.
+Scifo owns understanding, planning, routing, review synthesis, and the final response. It delegates target-project edits to `scifo_implementer`. `scifo_researcher` investigates without editing, and `scifo_reviewer` independently checks meaningful completed changes. These are behavior instructions, not separate security permissions: Codex subagents inherit the parent session's tools and sandbox. Configure parent permissions deliberately and inspect changes before accepting them.
 
 Scifo asks before destructive actions, external side effects, publishing, deployment, credential use, or out-of-scope changes. Routine repository work can proceed without interruption.
 
 ## Maintenance
 
-Keep `AGENTS.md` concise, and keep each skill focused on one workflow. Update the README's copy steps when the file layout changes. Do not add application code or a setup script to this kit.
+Keep `AGENTS.md` concise and each skill focused. Do not add application code or a setup script to this kit. The installer and share workflows are instructions that Codex follows with the user's approval for writes outside the current repository.

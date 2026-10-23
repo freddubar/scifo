@@ -1,5 +1,5 @@
 ---
-name: repo-orientation
+name: scifo-repo-orientation
 description: Map an unfamiliar code repository before making changes. Use when asked to explain a project, find entry points, identify conventions, or prepare a focused implementation plan.
 ---
 

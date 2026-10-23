@@ -1,5 +1,5 @@
 ---
-name: debugging
+name: scifo-debugging
 description: Diagnose a bug or unexpected behavior using repository evidence. Use when asked to investigate an error, regression, failing check, or inconsistent result.
 ---
 

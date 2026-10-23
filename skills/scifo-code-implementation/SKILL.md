@@ -1,5 +1,5 @@
 ---
-name: code-implementation
+name: scifo-code-implementation
 description: Make a bounded code change after the user has requested implementation. Use to implement a scoped feature, fix, or refactor while following the existing repository patterns.
 ---
 

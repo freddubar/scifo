@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: scifo-code-review
 description: Review a completed code diff for actionable bugs, regressions, security issues, and missing verification. Use after a meaningful implementation or when the user asks for a review.
 ---
 
