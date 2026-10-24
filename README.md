@@ -23,7 +23,7 @@ Project-specific skills can live in that repository's `.agents/skills/`. To reus
 
 - `AGENTS.md`: orchestration, communication, and safety instructions.
 - `.codex/agents/`: researcher, implementer, and reviewer role definitions.
-- `skills/`: repository orientation, implementation, debugging, code review, installation, and skill sharing workflows.
+- `skills/`: general idea clarification, coding idea shaping and approved implementation planning, repository orientation, implementation, debugging, code review, installation, and skill sharing workflows.
 - `.scifo/secrets.example.md`: a safe template for recording environment variable names and purposes.
 
 Scifo's secret registry is for human reference and records names and purposes only. Never put real values in Scifo files, prompts, chat, logs, or command output. Keep them in environment variables or a secret manager. Scifo must not read `.scifo/secrets.local.md`.
