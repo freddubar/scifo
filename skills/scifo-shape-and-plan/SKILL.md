@@ -1,36 +1,30 @@
 ---
 name: scifo-shape-and-plan
-description: Clarify a rough software idea with the user, inspect the repository, and get approval on an executable plan before implementation.
+description: Clarify an early coding idea, inspect the repository, and either implement it or return a plan based on the user's request.
 ---
 
-# Shape an idea, plan it, then build it
+# Shape and plan coding work
 
-Use this workflow when the user invokes `$scifo-shape-and-plan` or explicitly asks to shape an early coding idea into an implementation plan and then proceed. It is intended for software work. For non-coding or general ideas, use `$scifo-grill-me` and stop at the conversational recap.
+Use this workflow when the user invokes `$scifo-shape-and-plan` or brings an early software idea that needs clarification before work. It is the front door for coding ideas. For general or non-coding ideas, use `$scifo-grill-me` only when the user opts into that interview; do not invoke grilling automatically.
 
-Keep the user involved at two decision points: first confirm that the clarified idea is accurate, then approve the implementation plan. Do not edit files before the plan is approved.
+## Clarify, then choose the path
 
-## 1. Clarify the idea
+Read applicable repository `AGENTS.md` instructions before exploring. Briefly restate your understanding of the idea and, if material uncertainties remain, ask a small batch of related questions. Let answers shape follow-up rounds. Focus on user outcome, scope, constraints, tradeoffs, success signals, and meaningful failure cases. Accept uncertainty, flag conflicting assumptions, and identify questions that need research or a prototype instead of asking them repeatedly.
 
-Before the interview, read the applicable `AGENTS.md` instructions so the workflow follows repository guidance. Do not explore relevant code yet. Start from the user's rough idea, even if it is incomplete. Restate your understanding and ask a small batch of related, consequential questions. Use the answers to choose the next round; ask only questions whose prerequisites are clear. Explore intended users and outcomes, scope boundaries, constraints, tradeoffs, success signals, and important failure cases as relevant.
+When the user has asked for implementation, the request itself authorizes in-scope changes. Give a concise understanding recap, then continue without waiting for confirmation: inspect relevant repository code, conventions, and interfaces, and form an executable plan internally. Resolve ordinary details from evidence and sensible assumptions. Ask only about a material unresolved decision or a change to scope or behavior. If none remains, proceed to implementation; do not require a separate plan approval.
 
-Be candid about conflicting assumptions and alternatives, while leaving decisions with the user. Accept "I don't know" as a valid answer. If discussion cannot resolve a question, record it as an open item with a concrete research or prototype step instead of repeatedly rephrasing it. Keep the session focused and stop when the remaining decisions are settled or explicitly left open.
+When the user asked only to explore, assess, or plan, clarify as needed, inspect relevant code, and present an executable plan grounded in the repository. Stop there and ask whether the user wants implementation. Do not treat an exploratory prompt as authorization to edit.
 
-Give a concise recap of the goal, audience, decisions, constraints, assumptions, and open questions. Ask the user to confirm or correct this recap. Do not inspect relevant code or draft the executable implementation plan until the user confirms the recap.
+An executable plan should identify expected behavior, bounded implementation steps and likely file or agent ownership, relevant checks, and material risks or dependencies. Keep it concise and specific enough to guide implementation. It can be presented in the conversation; it does not need to be written to a file by default.
 
-## 2. Inspect and plan
+## Implement proportionally
 
-After confirmation, inspect the current repository instructions and relevant code, using `scifo-repo-orientation` when the project is unfamiliar or the exploration is substantial. Ground the plan in actual repository structure and conventions. Resolve straightforward implementation details from repository evidence; ask the user only about remaining choices that materially change the result.
+For tiny localized edits, the main agent may edit directly when delegation would cost more than it saves. Delegate substantial or independently useful bounded changes to `scifo_implementer`. Use `scifo_researcher` for substantial investigation and `scifo_reviewer` for independent review after meaningful changes. Preserve unrelated work and reconcile material review findings before reporting.
 
-Produce an executable plan with the expected behavior, bounded implementation steps and likely ownership/files, relevant checks, and material risks or unresolved dependencies. Keep it concise and specific enough that another implementer can act on it. Present the plan in the conversation and ask the user to approve it or request changes. Do not edit files while approval is pending.
+Run checks when requested or required by the agreed acceptance criteria. Do not add or run tests or unrelated checks by default. Report what changed, checks actually performed, and unresolved risks.
 
-Plan mode is optional. This skill cannot toggle the coding agent's UI mode. If the user wants native Plan mode, explain that they can invoke it manually; otherwise continue the clarification and planning workflow in the current mode.
-
-## 3. Implement after approval
-
-Once the user approves the plan, continue in the same conversation. Follow Scifo's existing orchestration instructions: delegate bounded target-project edits to `scifo_implementer`, preserve unrelated work, and ask `scifo_reviewer` for an independent read-only review after meaningful changes. Use `scifo_researcher` for substantial independent investigation where useful. Reconcile review findings through the implementer, then report the resulting behavior, files changed, checks actually run, and any unresolved risks.
-
-Do not add or run tests unless requested or required by the agreed acceptance criteria. Follow applicable repository and runtime approval rules for checks and side effects.
+Plan mode is optional. This skill cannot toggle the coding agent's UI mode. If the user wants native Plan mode, explain that they can invoke it manually; otherwise continue in the current mode.
 
 ## Persistence
 
-Keep the recap, plan, and progress in the conversation by default. Write a plan or progress artifact only when the user asks, or when a handoff across threads or sessions is needed to recover the agreed context. If that becomes necessary, tell the user what artifact you intend to create and keep it within the approved project scope.
+Use the conversation as the default record for the recap, plan, and progress. Create a project plan or checkpoint only when the user asks or cross-session recovery warrants it. If a concise project artifact fits within the agreed scope, create it without adding a needless approval step; ask only if its contents or location would materially expand the request. Respect repository and runtime approval rules.

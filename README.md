@@ -13,6 +13,12 @@ After that, use Codex in any project as usual. Scifo's global instructions and s
 
 The installer keeps existing global instructions, adds or updates only a marked Scifo section, and stops if an agent or skill destination already exists with content it cannot identify as Scifo-owned. It does not change `~/.codex/config.toml` by default. Codex's normal login is the sign-in mechanism; Scifo has no separate account.
 
+## Working with Scifo
+
+For a clear implementation request, describe the change and Scifo will inspect the repository, plan internally, and proceed within the requested scope. It does not require a separate recap or plan approval. If you are exploring an idea or asking for a plan only, Scifo will stop at the plan and ask whether you want implementation. It will ask mid-work only when a material decision or scope change needs your input.
+
+Use `$scifo-shape-and-plan` when an early coding idea needs clarification before repository work. For general, non-coding idea pressure-testing, `$scifo-grill-me` is an explicit opt-in. Native Plan mode is optional and must be invoked manually when desired.
+
 ## Optional project context
 
 Use project-local instructions only when a repository has conventions or architecture that should not follow you to other projects. Start with [`templates/project/AGENTS.md`](templates/project/AGENTS.md), merge relevant content into that repository's `AGENTS.md`, and fill in the project facts. Keep shared Scifo behavior in your user-level files and project facts in the project repository.
@@ -23,7 +29,7 @@ Project-specific skills can live in that repository's `.agents/skills/`. To reus
 
 - `AGENTS.md`: orchestration, communication, and safety instructions.
 - `.codex/agents/`: researcher, implementer, and reviewer role definitions.
-- `skills/`: general idea clarification, coding idea shaping and approved implementation planning, repository orientation, implementation, debugging, code review, installation, and skill sharing workflows.
+- `skills/`: opt-in general idea clarification, coding idea shaping and implementation planning, repository orientation, implementation, debugging, code review, installation, and skill sharing workflows.
 - `.scifo/secrets.example.md`: a safe template for recording environment variable names and purposes.
 
 Scifo's secret registry is for human reference and records names and purposes only. Never put real values in Scifo files, prompts, chat, logs, or command output. Keep them in environment variables or a secret manager. Scifo must not read `.scifo/secrets.local.md`.
